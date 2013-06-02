@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 2, 2013 3:26:14 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="model.Medium" table="MEDIUM">
+        <id name="type" type="int">
+            <column name="TYPE" />
+            <generator class="assigned" />
+        </id>
+        <property name="album" type="int">
+            <column name="ALBUM" />
+        </property>
+        <property name="titel" type="java.lang.String">
+            <column name="TITEL" />
+        </property>
+        <property name="interpret" type="java.lang.String">
+            <column name="INTERPRET" />
+        </property>
+        <property name="laenge" type="float">
+            <column name="LAENGE" />
+        </property>
+        <property name="dateigroesse" type="float">
+            <column name="DATEIGROESSE" />
+        </property>
+        <property name="pfad" type="java.lang.String">
+            <column name="PFAD" />
+        </property>
+        <property name="angehoert" type="int">
+            <column name="ANGEHOERT" />
+        </property>
+        <property name="gekauft" type="int">
+            <column name="GEKAUFT" />
+        </property>
+    </class>
+</hibernate-mapping>
