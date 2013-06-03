@@ -1,18 +1,28 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Jun 2, 2013 8:02:38 PM by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated Jun 3, 2013 12:43:36 PM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
     <class name="model.Album" table="ALBUM">
-        <id name="name" type="java.lang.String">
-            <column name="NAME" />
-            <generator class="assigned" />
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="increment" />
         </id>
+        <property name="name" type="java.lang.String">
+            <column name="NAME" />
+        </property>
         <property name="interpret" type="java.lang.String">
             <column name="INTERPRET" />
         </property>
         <property name="cover" type="java.lang.String">
             <column name="COVER" />
         </property>
+        <list name="media" inverse="false" table="MEDIUM" lazy="true">
+            <key>
+                <column name="ID" not-null="true" />
+            </key>
+            <list-index></list-index>
+            <one-to-many class="model.Medium" />
+        </list>
     </class>
 </hibernate-mapping>

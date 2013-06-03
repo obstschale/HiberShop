@@ -1,5 +1,8 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Klasse Medium: ein Medium kann ein Audio- oder ein Videomedium sein. Es
  * hat immer einen Medientyp und kann - muss aber nicht - Bestandteil eines
@@ -23,10 +26,18 @@ package model;
  */
 public class Album {
 	
-	String name;
-	String interpret;
-	String cover;
+	private int id;
+	private String name;
+	private String interpret;
+	private String cover;
+	private List<Medium> media = new ArrayList<Medium>();
 	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getName() {
 		return name;
 	}
@@ -44,5 +55,11 @@ public class Album {
 	}
 	public void setCover(String cover) {
 		this.cover = cover;
+	}
+	public List<Medium> getMedia() {
+		return media;
+	}
+	public void setMedia(List<Medium> media) {
+		this.media = media;
 	}
 }

@@ -9,26 +9,34 @@ package model;
  */
 public class Medium {
 	
-	int type;
-	int album;
-	String titel;
-	String interpret;
-	float laenge;
-	float dateigroesse;
-	String pfad;
-	int angehoert;
-	int gekauft;
+	private int id;
+	private Type type;
+	private Album album;
+	private String titel;
+	private String interpret;
+	private float laenge;
+	private float dateigroesse;
+	private String pfad;
+	private int angehoert;
+	private int gekauft;
 	
-	public int getType() {
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public Type getType() {
 		return type;
 	}
-	public void setType(int type) {
+	public void setType(Type type) {
 		this.type = type;
 	}
-	public int getAlbum() {
+	public Album getAlbum() {
 		return album;
 	}
-	public void setAlbum(int album) {
+	public void setAlbum(Album album) {
 		this.album = album;
 	}
 	public String getTitel() {
@@ -73,4 +81,5 @@ public class Medium {
 	public void setGekauft(int gekauft) {
 		this.gekauft = gekauft;
 	}
+	
 }

@@ -35,8 +35,8 @@ public class MediumTest {
 	
 	private static Medium createNewMedium(int type, int album, String titel, String interpret, float laenge, float dateigroesse, String pfad) {
 		Medium m = new Medium();
-		m.setType(type);
-		m.setAlbum(album);
+//		m.setType(type);
+//		m.setAlbum(album);
 		m.setTitel(titel);
 		m.setInterpret(interpret);
 		m.setLaenge(laenge);

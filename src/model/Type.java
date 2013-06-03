@@ -1,7 +1,7 @@
 package model;
 
 /**
- * ￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼Klass Type: Ein Medientyp wird durch seinen Name und ein zugehoeriges
+ * Klass Type: Ein Medientyp wird durch seinen Name und ein zugehoeriges
  * Icon beschrieben. Fuer die Speicherung in der DB benoetigt jeder Typ
  * noch eine ID
  * @author Hans-Helge Buerger
@@ -9,9 +9,9 @@ package model;
  */
 public class Type {
 	
-	int id;
-	String name;
-	String icon;
+	private int id;
+	private String name;
+	private String icon;
 	
 	public int getId() {
 		return id;
@@ -31,4 +31,5 @@ public class Type {
 	public void setIcon(String icon) {
 		this.icon = icon;
 	}
+	
 }
