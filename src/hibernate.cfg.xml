@@ -53,7 +53,7 @@
   		<property name="hibernate.use_sql_comments">false</property>
   		
         <!-- Drop and re-create the database schema on startup -->
-        <property name="hbm2ddl.auto">create</property>
+        <property name="hbm2ddl.auto">update</property>
 
         <!-- Names the annotated entity class -->
         <mapping resource="model/Type.hbm.xml"/>
