@@ -4,19 +4,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<%@ include file="links.html" %>
+	<title>Insert title here</title>
 </head>
 <body>
-<%
-	Map<String, String[]> parameters = request.getParameterMap();
-	for(String parameter : parameters.keySet()) {
-		if(!parameter.toLowerCase().startsWith("submitbutton")) {
-	        String[] values = parameters.get(parameter);
-	        //your code here
-	        %> <p> <%= values[0] %> </p> <%
-		}
-	}
-%>
+	<div class="pure-g">
+	
+	    <div class="pure-u-1-2 sidebar">
+	    		<%@ include file="navigation.html" %>
+	    </div>
+	    
+	    <div class="pure-u-1-2 main">
+
+			<p> Type Name: <strong>${typedata.name}</strong> </p>
+    		<p> Type Icon: <strong>${typedata.icon}</strong> </p>
+
+	    </div>
+	    
+	</div>
 </body>
 </html>

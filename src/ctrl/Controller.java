@@ -7,14 +7,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Album;
+import model.Medium;
+import model.Type;
+
 public class Controller extends HttpServlet {
 
 	private static final long serialVersionUID = 6901673769632833244L;
-
+	
+	
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
+		
 		String address = null;
 		request.setAttribute("errortext", "");
 
@@ -50,17 +55,50 @@ public class Controller extends HttpServlet {
 			String confirmBtn = request.getParameter("confirmButton");
 
 			if (confirmBtn.equals("Neues Album")) {
+				Album album = new Album();
+
 				address = "AlbumConfirmation.jsp";
+				request.getSession().setAttribute("albumdata", album);
+
+				album.setName(request.getParameter("name"));
+				album.setInterpret(request.getParameter("interpret"));
+				album.setCover(request.getParameter("cover"));
+				//album.setMedium();
+
 			} else if (confirmBtn.equals("Neuer Typ")) {
+				Type type = new Type();
+				
 				address = "TypeConfirmation.jsp";
+				request.getSession().setAttribute("typedata", type);
+				
+				type.setName(request.getParameter("name"));
+				type.setIcon(request.getParameter("icon"));
+				
 			} else if (confirmBtn.equals("Neues Medium")) {
-				address = "MediumConfirmation.jsp";
+				try {
+					Medium medium = new Medium();
+					
+					address = "MediumConfirmation.jsp";
+					request.getSession().setAttribute("mediumdata", medium);
+					
+					//medium.setAlbum();
+					medium.setDateigroesse(Float.parseFloat(request.getParameter("dateigroesse")));
+					medium.setInterpret(request.getParameter("interpret"));
+					medium.setLaenge(Float.parseFloat(request.getParameter("laenge")));
+					medium.setPfad(request.getParameter("pfad"));
+					medium.setTitel(request.getParameter("titel"));
+					//medium.setType(type);
+				} catch (NumberFormatException e){
+					request.setAttribute("errortext", "Fehlermeldung: Falsche Nummer Eingabe!");
+					address="NewMedium.jsp";
+				}
+				
 			} else {
 				request.setAttribute("errortext", "Wierd ... What happend with your confirmation?");
 				address = "ErrorText.jsp";
 			}
 		}
-
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(address);
 		dispatcher.forward(request, response);
 	}

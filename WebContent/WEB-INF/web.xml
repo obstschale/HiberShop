@@ -5,7 +5,7 @@
 	id="WebApp_ID" version="2.5">
 	<display-name>Musikshop_JSP</display-name>
 	<welcome-file-list>
-		<welcome-file>welcom.jsp</welcome-file>
+		<welcome-file>welcome.jsp</welcome-file>
 	</welcome-file-list>
 	<servlet>
 		<servlet-name>ControllerServlet</servlet-name>
