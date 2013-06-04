@@ -1,5 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="java.io.*"  %>
+<%@ page import="model.Album" %>
+<%@ page import="model.Type" %>
+<%@ page import="view.DatabaseQueries" %>
+<%@ page import="hibernate.HibernateUtil" %>
+<%@ page import="org.hibernate.Session" %>
+<%@ page import="org.hibernate.SessionFactory" %>
+<%@ page import="org.hibernate.Transaction" %>
+<%@ page import="java.util.Iterator" %>
+<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,13 +29,59 @@
 				<jsp:include page="ErrorText.jsp">
 					<jsp:param value="${requestScope.errortext}" name="errortext"/>
 				</jsp:include>
-				<input type="text" name="type" placeholder="Typen name"  />
-				<input type="text" name="album" placeholder="Album name" />
-				<input type="text" name="titel" placeholder="Titel name" />
-				<input type="text" name="interpret" placeholder="Interpret" />
-				<input type="number" name="laenge" step="any" min="0" max="20" />
-				<input type="number" name="dateigroesse" step="any" min="0" max="100" />
-				<input type="file" name="pfad" value="Medium hochladen" />
+				<br>
+				<select name="album">
+					<option>W&auml;hle ein Album</option>
+					<%
+						Session ses;
+						Transaction transaction;
+						SessionFactory sf = HibernateUtil.getSessionFactory();
+						DatabaseQueries query = new DatabaseQueries();
+						ses = sf.getCurrentSession();
+						transaction = ses.beginTransaction();
+						
+						List<Album> albums = query.getAllAlbums(ses, transaction);
+						Iterator<Album> iter1 = albums.iterator();
+						while (iter1.hasNext()) {
+							Album album = iter1.next();
+							String name = album.getName();
+							int id = album.getId(); %>
+							<option value="<% out.print(id); %>">
+							<% out.print(name); %>
+							</option>
+							<%
+						}
+
+						transaction.commit();
+						
+					%>
+				</select><br>
+				<select name="type">
+					<option>W&auml;hle einen Typen</option>
+					<%
+						ses = sf.getCurrentSession();
+						transaction = ses.beginTransaction();
+						
+						List<Type> types = query.getAllTypes(ses, transaction);
+						Iterator<Type> iter2 = types.iterator();
+						while (iter2.hasNext()) {
+							Type type = iter2.next();
+							String name = type.getName();
+							int id = type.getId(); %>
+							<option value="<% out.print(id); %>">
+							<% out.print(name); %>
+							</option>
+							<%
+						}
+						
+						transaction.commit();
+					%>
+				</select><br>
+				<input type="text" name="titel" placeholder="Titel" /><br>
+				<input type="text" name="interpret" placeholder="Interpret" /><br>
+				<input type="number" name="laenge" placeholder="L&auml;nge" step="any" min="0" max="20" /><br>
+				<input type="number" name="dateigroesse" placeholder="Dateigr&ouml;&szlig;e" step="any" min="0" max="100" /><br>
+				<input type="file" name="pfad" value="Medium hochladen" /><br>
 				<br>
 				<input type="submit" class="pure-button pure-button-success" name="confirmButton" value="Neues Medium" />		
 				<input type="reset" class="pure-button pure-button-error" name="cancle" value="Abbrechen" />

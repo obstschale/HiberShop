@@ -1,11 +1,17 @@
 package ctrl;
 
+import hibernate.HibernateUtil;
+
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 import model.Album;
 import model.Medium;
@@ -14,7 +20,9 @@ import model.Type;
 public class Controller extends HttpServlet {
 
 	private static final long serialVersionUID = 6901673769632833244L;
-	
+	Transaction transaction = null;
+	Session session = null;
+	SessionFactory sf;
 	
 	@Override
 	protected void doGet(HttpServletRequest request,
@@ -24,14 +32,56 @@ public class Controller extends HttpServlet {
 		request.setAttribute("errortext", "");
 
 		if (request.getParameter("submitButton") != null) {
+
+			/** setting up Hibernate SessionFactory **/
+			sf = HibernateUtil.getSessionFactory();
+			
 			String submitBtn = request.getParameter("submitButton");
 			
 			if (submitBtn.equals("Weiter: Album speichern")) {
 				address = "AlbumProcessing.jsp";
+				Album album = (Album) request.getSession().getAttribute("albumdata");
+				
+				try {
+					session = sf.getCurrentSession();
+					// Datenmanipulation ueber Transaktionen
+					transaction = session.beginTransaction();
+					session.save(album);
+					transaction.commit();
+				} catch (Exception ex) {
+					System.err.println("Failed to create sessionFactory object." + ex);
+				    throw new ExceptionInInitializerError(ex);
+				}
+				
 			} else if (submitBtn.equals("Weiter: Type speichern")) {
 				address = "TypeProcessing.jsp";
+				Type type = (Type) request.getSession().getAttribute("typedata");
+				
+				try {
+					session = sf.getCurrentSession();
+					// Datenmanipulation ueber Transaktionen
+					transaction = session.beginTransaction();
+					session.save(type);
+					transaction.commit();
+				} catch (Exception ex) {
+					System.err.println("Failed to create sessionFactory object." + ex);
+				    throw new ExceptionInInitializerError(ex);
+				}
+				
 			} else if (submitBtn.equals("Weiter: Medium speichern")) {
 				address = "MediumProcessing.jsp";
+				Medium medium = (Medium) request.getSession().getAttribute("mediumdata");
+				
+				try {
+					session = sf.getCurrentSession();
+					// Datenmanipulation ueber Transaktionen
+					transaction = session.beginTransaction();
+					session.save(medium);
+					transaction.commit();
+				} catch (Exception ex) {
+					System.err.println("Failed to create sessionFactory object." + ex);
+				    throw new ExceptionInInitializerError(ex);
+				}
 			} else {
 				request.setAttribute("errortext", "Wierd ... What happend with your submit?");
 				address = "ErrorText.jsp";
@@ -77,19 +127,38 @@ public class Controller extends HttpServlet {
 			} else if (confirmBtn.equals("Neues Medium")) {
 				try {
 					Medium medium = new Medium();
+					Album tempAlbum = new Album();
+					Type tempType = new Type();
 					
 					address = "MediumConfirmation.jsp";
 					request.getSession().setAttribute("mediumdata", medium);
 					
-					//medium.setAlbum();
+					try {
+						/** setting up Hibernate SessionFactory **/
+						sf = HibernateUtil.getSessionFactory();
+						session = sf.getCurrentSession();
+						// Datenmanipulation ueber Transaktionen
+						transaction = session.beginTransaction();
+						
+						tempAlbum = (Album) session.get(Album.class, Integer.parseInt(request.getParameter("album")));
+						tempType = (Type) session.get(Type.class, Integer.parseInt(request.getParameter("type")));
+						
+						transaction.commit();
+					} catch (Exception ex) {
+						System.err.println("Failed to create sessionFactory object." + ex);
+					    throw new ExceptionInInitializerError(ex);
+					}
+					
+					medium.setAlbum(tempAlbum);
 					medium.setDateigroesse(Float.parseFloat(request.getParameter("dateigroesse")));
 					medium.setInterpret(request.getParameter("interpret"));
 					medium.setLaenge(Float.parseFloat(request.getParameter("laenge")));
 					medium.setPfad(request.getParameter("pfad"));
 					medium.setTitel(request.getParameter("titel"));
-					//medium.setType(type);
+					medium.setType(tempType);
+					
 				} catch (NumberFormatException e){
-					request.setAttribute("errortext", "Fehlermeldung: Falsche Nummer Eingabe!");
+					request.setAttribute("errortext", "Fehlermeldung: Da ist wohl was falsch gelaufen!");
 					address="NewMedium.jsp";
 				}
 				
