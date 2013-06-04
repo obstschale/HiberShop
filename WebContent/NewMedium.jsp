@@ -7,7 +7,10 @@
 <title>New Medium</title>
 </head>
 <body>
-	<form action="MediumConfirmation.jsp">
+	<form action="Controller">
+		<jsp:include page="ErrorText.jsp">
+			<jsp:param value="${requestScope.errortext}" name="errortext"/>
+		</jsp:include>
 		<input type="text" name="type" placeholder="Typen name"  />
 		<input type="text" name="album" placeholder="Album name" />
 		<input type="text" name="titel" placeholder="Titel name" />
@@ -16,7 +19,7 @@
 		<input type="number" name="dateigroesse" min="0" max="100" />
 		<input type="file" name="medium" value="Medium hochladen" />
 		<br>
-		<input type="submit" name="submit" value="OK" />		
+		<input type="submit" name="confirmButton" value="Neues Medium" />		
 		<input type="reset" name="cancle" value="Abbrechen" />
 	</form>
 </body>

@@ -7,7 +7,10 @@
 <title>New Album</title>
 </head>
 <body>	
-	<form action="AlbumConfirmation.jsp">
+	<form action="Controller">
+		<jsp:include page="ErrorText.jsp">
+			<jsp:param value="${requestScope.errortext}" name="errortext"/>
+		</jsp:include>
 		<input type="text" name="name" placeholder="Album name" required />
 		<input type="text" name="interpret" placeholder="Interpret" />
 		<select>
@@ -15,7 +18,7 @@
 		</select>
 		<input type="file" name="cover" placeholder="Cover" />
 		<br>
-		<input type="submit" name="submit" value="OK" />		
+		<input type="submit" name="confirmButton" value="Neues Album" />		
 		<input type="reset" name="cancle" value="Abbrechen" />
 	</form>
 </body>

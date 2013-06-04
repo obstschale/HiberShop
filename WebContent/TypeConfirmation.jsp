@@ -10,5 +10,11 @@
 <h1>Type Confirmation</h1>
 	<p> Folgender Type wurde an diese Seite geschickt: <b>${param.name}</b>.<br>
 	<p> Folgendes Icon wurde an diese Seite geschickt: <b>${param.icon}</b>.
+	<form action="Controller">
+		<input type="hidden" name = "name" value="${param.name}">
+		<input type="hidden" name = "icon" value="${param.icon}">
+		<input type = "submit" name = "backButton" value="Zurück zu New Type">
+		<input type = "submit" name = "submitButton" value="Weiter: Type speichern">
+	</form>
 </body>
 </html>

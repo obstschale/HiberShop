@@ -15,6 +15,17 @@
 	<p>Folgende L&auml;nge wurde an diese Seite geschickt: <b>${param.laenge}</b>.</p>
 	<p>Folgende Dateigr&ouml;&szlig;e wurde an diese Seite geschickt: <b>${param.dateigroesse}</b>.</p>
 	<p>Folgendes Medium wurde an diese Seite geschickt: <b>${param.medium}</b>.</p>
+	<form action="Controller">
+		<input type="hidden" name = "type" value="${param.type}">
+		<input type="hidden" name = "album" value="${param.album}">
+		<input type="hidden" name = "titel" value="${param.titel}">
+		<input type="hidden" name = "interpret" value="${param.interpret}">
+		<input type="hidden" name = "laenge" value="${param.laenge}">
+		<input type="hidden" name = "dateigroesse" value="${param.dateigroesse}">
+		<input type="hidden" name = "medium" value="${param.medium}">
+		<input type = "submit" name = "backButton" value="Zurück zu New Medium">
+		<input type = "submit" name = "submitButton" value="Weiter: Medium speichern">
+	</form>
 </body>
 </body>
 </html>
