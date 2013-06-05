@@ -9,8 +9,6 @@
 <%@ page import="org.hibernate.Session" %>
 <%@ page import="org.hibernate.SessionFactory" %>
 <%@ page import="org.hibernate.Transaction" %>
-<%@ page import="java.util.Iterator" %>
-<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html>
 <head>

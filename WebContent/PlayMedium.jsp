@@ -49,8 +49,8 @@
 			throw new ExceptionInInitializerError(ex);
 		}
 		%>
-		<form action="ControllerMediumDetailed">
-			<input type="submit" class="pure-button pure-button-secondary" name="back" value="Zur&uuml;ck" />
+		<form action="${controller}">
+			<input type="submit" class="pure-button pure-button-secondary" name="backPlay" value="Zur&uuml;ck" />
 		</form>
 	</div>
 </div>

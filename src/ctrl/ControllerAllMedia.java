@@ -137,12 +137,14 @@ public class ControllerAllMedia extends HttpServlet {
 
 				transaction.commit();
 			} catch (Exception ex) {
-				System.err.println("Failed to create sessionFactory object."
-						+ ex);
+				System.err.println("Failed to create sessionFactory object." + ex);
 				throw new ExceptionInInitializerError(ex);
 			}
-
 			
+			request.setAttribute("controller", "ControllerAllMedia");
+
+		} else if (request.getParameter("backPlay") != null) {
+			address = "AllMedia.jsp";
 		} else {
 			request.setAttribute("errortext",
 					"Wierd ... Something went wront with your request O_o");

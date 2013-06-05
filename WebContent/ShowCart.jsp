@@ -2,8 +2,6 @@
     pageEncoding="ISO-8859-1"%>
 <%@ page import="model.Medium" %>
 <%@ page import="view.Cart" %>
-<%@ page import="java.util.Set" %>
-<%@ page import="java.util.HashSet" %>
 <%@ page import="java.io.IOException;" %>
 <!DOCTYPE html>
 <html>
@@ -20,6 +18,7 @@
     </div>
     
     <div class="pure-u-1-2 main">
+    <img src="${bild}" />
     	<h2>Warenkorb</h2>
     	
 		<jsp:include page="ErrorText.jsp">

@@ -79,6 +79,8 @@ public class ControllerCart extends HttpServlet {
 			/* Customer clicked back button */
 			address = "AllMedia.jsp";
 
+		} else if (request.getParameter("backPlay") != null) {
+			address = "ShowCart.jsp";
 		} else if (request.getParameter("backPrint") != null) {
 			/* Customer clicked back button after print */
 			address = "AllMedia.jsp";
@@ -213,6 +215,38 @@ public class ControllerCart extends HttpServlet {
 			}
 
 			request.getSession().setAttribute("mediumdata", medium);
+		} else if (request.getParameter("play") != null) {
+			/* Customer clicked play button */
+			Medium medium = new Medium();
+			address = "PlayMedium.jsp";
+			int id = Integer.parseInt(request.getParameter("play"));
+
+			try {
+				/** setting up Hibernate SessionFactory **/
+				sf = HibernateUtil.getSessionFactory();
+				session = sf.getCurrentSession();
+				// Datenmanipulation ueber Transaktionen
+				transaction = session.beginTransaction();
+
+				/* get medium object */
+				medium = (Medium) session.get(Medium.class, id);
+				/* save medium as attribute so PlayMedium.jsp has access */
+				request.getSession().setAttribute("medium", medium);
+				/* increament played in Database */
+				int played = medium.getAngehoert();
+				played++;
+				medium.setAngehoert(played);
+				session.update(medium);
+
+				transaction.commit();
+			} catch (Exception ex) {
+				System.err.println("Failed to create sessionFactory object."
+						+ ex);
+				throw new ExceptionInInitializerError(ex);
+			}
+
+			request.setAttribute("controller", "ControllerCart");
+
 		} else {
 			request.setAttribute("errortext", "Wierd ... Something went wront with your request O_o");
 			address = "ShowCart.jsp";
