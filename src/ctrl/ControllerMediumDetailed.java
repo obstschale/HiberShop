@@ -13,9 +13,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import model.Album;
 import model.Medium;
+import model.Type;
 
-public class ControllerAllMedia extends HttpServlet {
+public class ControllerMediumDetailed extends HttpServlet {
 
 	private static final long serialVersionUID = 6901673769632833244L;
 	Transaction transaction = null;
@@ -32,33 +34,11 @@ public class ControllerAllMedia extends HttpServlet {
 		if (request.getParameter("buy") != null) {
 			/* Customer clicked buy button */
 			
-		} else if (request.getParameter("details") != null) {
-			/* Customer clicked details button */
-			Medium medium = new Medium();
+		} else if (request.getParameter("back") != null) {
+			/* Customer clicked back button */
+			System.out.println("back");
+			address = "AllMedia.jsp";
 			
-			address = "Medium.jsp";
-			
-			int id = Integer.parseInt(request.getParameter("details"));
-			
-			try {
-				/** setting up Hibernate SessionFactory **/
-				sf = HibernateUtil.getSessionFactory();
-				session = sf.getCurrentSession();
-				// Datenmanipulation ueber Transaktionen
-				transaction = session.beginTransaction();
-				
-				medium = (Medium) session.get(Medium.class, id);
-				request.getSession().setAttribute("dateigroesse", medium.getDateigroesseMB());
-				request.getSession().setAttribute("album", medium.getType().getName());
-				request.getSession().setAttribute("type", medium.getAlbum().getName());
-
-				transaction.commit();
-			} catch (Exception ex) {
-				System.err.println("Failed to create sessionFactory object." + ex);
-			    throw new ExceptionInInitializerError(ex);
-			}
-
-			request.getSession().setAttribute("mediumdata", medium);
 		} else if (request.getParameter("play") != null) {
 			/* Customer clicked play button */
 			
@@ -71,3 +51,4 @@ public class ControllerAllMedia extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 }
+

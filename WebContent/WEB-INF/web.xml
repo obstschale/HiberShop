@@ -25,4 +25,13 @@
 		<servlet-name>ControllerAllMediaServlet</servlet-name>
 		<url-pattern>/ControllerAllMedia</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ControllerMediumDetailedServlet</servlet-name>
+		<servlet-class>ctrl.ControllerMediumDetailed</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControllerMediumDetailedServlet</servlet-name>
+		<url-pattern>/ControllerMediumDetailed</url-pattern>
+	</servlet-mapping>
 </web-app>

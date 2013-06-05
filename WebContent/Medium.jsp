@@ -43,6 +43,11 @@
 				<td>${type}</td>
 			</tr>
     	</table>
+    	<form action="ControllerMediumDetailed">
+			<button class="pure-button pure-button-active" name="back" value="back">Zur&uuml;ck</button><br>
+			<button class="pure-button pure-button-disabled" name="buy" value="${mediumdata.id}">Kaufen</button><br>
+			<button class="pure-button  pure-button-disabled" name="play">Abspielen</button>
+		</form>
     </div>
 
 </div>
