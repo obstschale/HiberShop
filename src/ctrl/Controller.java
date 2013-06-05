@@ -153,25 +153,27 @@ public class Controller extends HttpServlet {
 						}
 						
 						if (!request.getParameter("type").equals("NULL")) {
-							tempType = (Type) session.get(Type.class, Integer.parseInt(request.getParameter("type")));							
+							tempType = (Type) session.get(Type.class, Integer.parseInt(request.getParameter("type")));
 						} else {
-							tempType = null;
+							address = "NewMedium.jsp";
+							request.setAttribute("errortext", "Wierd ... Du hast keinen Typen angegeben!");	
 						}
-
-						
+							
 						transaction.commit();
 					} catch (Exception ex) {
 						System.err.println("Failed to create sessionFactory object." + ex);
 					    throw new ExceptionInInitializerError(ex);
 					}
 					
-					medium.setAlbum(tempAlbum);
-					medium.setDateigroesse(Float.parseFloat(request.getParameter("dateigroesse")));
-					medium.setInterpret(request.getParameter("interpret"));
-					medium.setLaenge(Float.parseFloat(request.getParameter("laenge")));
-					medium.setPfad(request.getParameter("pfad"));
-					medium.setTitel(request.getParameter("titel"));
-					medium.setType(tempType);
+					if (!address.equals("NewMedium.jsp")) {
+						medium.setAlbum(tempAlbum);
+						medium.setDateigroesse(Float.parseFloat(request.getParameter("dateigroesse")));
+						medium.setInterpret(request.getParameter("interpret"));
+						medium.setLaenge(Float.parseFloat(request.getParameter("laenge")));
+						medium.setPfad(request.getParameter("pfad"));
+						medium.setTitel(request.getParameter("titel"));
+						medium.setType(tempType);
+					}
 					
 				} catch (NumberFormatException e){
 					request.setAttribute("errortext", "Fehlermeldung: Da ist wohl was falsch gelaufen!");

@@ -44,9 +44,9 @@
 			</tr>
     	</table>
     	<form action="ControllerMediumDetailed">
-			<button class="pure-button pure-button-active" name="back" value="back">Zur&uuml;ck</button><br>
-			<button class="pure-button pure-button-active" name="buy" value="${mediumdata.id}">Kaufen</button><br>
-			<button class="pure-button  pure-button-active" name="play" value="${mediumdata.id}">Abspielen</button>
+			<button class="pure-button pure-button-warning" name="back" value="back">Zur&uuml;ck</button>
+			<button class="pure-button pure-button-success" name="buy" value="${mediumdata.id}">Kaufen</button>
+			<button class="pure-button  pure-button-secondary" name="play" value="${mediumdata.id}">Abspielen</button>
 		</form>
     </div>
 

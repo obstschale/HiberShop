@@ -82,7 +82,6 @@ public class ControllerMediumDetailed extends HttpServlet {
 			
 		} else if (request.getParameter("back") != null) {
 			/* Customer clicked back button */
-			System.out.println("back");
 			address = "AllMedia.jsp";
 			
 		} else if (request.getParameter("play") != null) {

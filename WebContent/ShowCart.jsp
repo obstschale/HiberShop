@@ -62,7 +62,13 @@
 						<td><% out.print(Float.toString(medium.getLaenge())); %></td>
 						<td><% out.print(medium.getDateigroesseMB()); %></td>
 						<td><% out.print(medium.getType().getName()); %></td>
-						<td><a href="ControllerCart?rmid=<% out.print(medium.getId()); %>" class="pure-button pure-button-error">Remove Item</a></td>
+						<td>
+							<form action="ControllerCart">
+								<button class="pure-button  pure-button-error" name="rmid" value="<% out.print(medium.getId()); %>">Entfernen</button><br>
+								<button class="pure-button pure-button-active" name="details" value="<% out.print(medium.getId()); %>">Details</button><br>
+								<button class="pure-button  pure-button-secondary" name="play" value="<% out.print(medium.getId()); %>">Abspielen</button>
+							</form>
+						</td>
 					</tr>
 					<%
 				}
