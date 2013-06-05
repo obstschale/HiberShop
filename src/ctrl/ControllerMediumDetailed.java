@@ -15,9 +15,7 @@ import org.hibernate.Transaction;
 
 import view.Cart;
 
-import model.Album;
 import model.Medium;
-import model.Type;
 
 public class ControllerMediumDetailed extends HttpServlet {
 
@@ -65,7 +63,13 @@ public class ControllerMediumDetailed extends HttpServlet {
 
 				medium = (Medium) session.get(Medium.class, id);
 
-				cart.getMedia().add(medium);
+				Boolean notInList = true;
+				for (Medium m : cart.getMedia() ) {
+					if (m.getId() == id)
+						notInList = false;
+				}
+				if (notInList)
+					cart.getMedia().add(medium);
 
 				transaction.commit();
 			} catch (Exception ex) {

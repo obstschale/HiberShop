@@ -64,8 +64,14 @@ public class ControllerAllMedia extends HttpServlet {
 				transaction = session.beginTransaction();
 
 				medium = (Medium) session.get(Medium.class, id);
-
-				cart.getMedia().add(medium);
+				Boolean notInList = true;
+				for (Medium m : cart.getMedia() ) {
+					if (m.getId() == id)
+						notInList = false;
+				}
+				if (notInList)
+					cart.getMedia().add(medium);
+				
 
 				transaction.commit();
 			} catch (Exception ex) {
