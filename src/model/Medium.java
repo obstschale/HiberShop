@@ -71,6 +71,9 @@ public class Medium {
 	public float getDateigroesse() {
 		return dateigroesse;
 	}
+	public String getDateigroesseMB() {
+		return dateigroesse + " MB";
+	}
 	public void setDateigroesse(float dateigroesse) {
 		this.dateigroesse = dateigroesse;
 	}

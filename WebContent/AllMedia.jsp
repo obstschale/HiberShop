@@ -57,7 +57,7 @@
 							<td><% out.print(medium.getInterpret()); %></td>
 							<td><% out.print(medium.getAlbum().getName()); %></td>
 							<td><% out.print(Float.toString(medium.getLaenge())); %></td>
-							<td><% out.print(Float.toString(medium.getDateigroesse())); %></td>
+							<td><% out.print(medium.getDateigroesseMB()); %></td>
 							<td><% out.print(medium.getType().getName()); %></td>
 						</tr>
 						<%
