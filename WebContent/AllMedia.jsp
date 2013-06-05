@@ -39,6 +39,7 @@
 		            <th>L&auml;nge</th>
 		            <th>Dateigr&ouml;&szlig;e</th>
 		            <th>Type</th>
+		            <th>Cover</th>
 		            <th></th>
 		        </tr>
 		    </thead>
@@ -63,6 +64,13 @@
 						<td><% out.print(Float.toString(medium.getLaenge())); %></td>
 						<td><% out.print(medium.getDateigroesseMB()); %></td>
 						<td><% out.print(medium.getType().getName()); %></td>
+						<td>
+						<%
+						if (medium.getAlbum().getCover() != null) {
+							%><img src="<% out.print(medium.getAlbum().getCover()); %>" width="50" alt="Cover Bild"/><%
+						}
+						%>
+						</td>
 						<td>
 							<form action="ControllerAllMedia">
 								<button class="pure-button  pure-button-success" name="buy" value="<% out.print(medium.getId()); %>">Kaufen</button><br>

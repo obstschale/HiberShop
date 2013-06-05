@@ -52,7 +52,6 @@ public class ControllerCart extends HttpServlet {
 				System.err.println("Failed to create cart object." + ex);
 			    throw new ExceptionInInitializerError(ex);
 			}
-			
 		} else if (request.getParameter("clean") != null) {
 			/* Customer clicked cart button */
 			Cart cart;
