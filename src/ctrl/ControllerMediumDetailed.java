@@ -13,6 +13,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import view.Cart;
+
 import model.Album;
 import model.Medium;
 import model.Type;
@@ -33,6 +35,46 @@ public class ControllerMediumDetailed extends HttpServlet {
 
 		if (request.getParameter("buy") != null) {
 			/* Customer clicked buy button */
+			Medium medium = new Medium();
+			Cart cart;
+			address = "AllMedia.jsp";
+
+			int id = Integer.parseInt(request.getParameter("buy"));
+
+			/*
+			 * get cart object if already exists otherwise set attribute
+			 */
+			try {
+				if (request.getSession().getAttribute("cart") != null) {
+					cart = (Cart) request.getSession().getAttribute("cart");
+				} else {
+					cart = new Cart();
+					request.getSession().setAttribute("cart", cart);
+				}
+			} catch (NullPointerException ex) {
+				System.err.println("Failed to create cart object." + ex);
+				throw new ExceptionInInitializerError(ex);
+			}
+
+			try {
+				/** setting up Hibernate SessionFactory **/
+				sf = HibernateUtil.getSessionFactory();
+				session = sf.getCurrentSession();
+				// Datenmanipulation ueber Transaktionen
+				transaction = session.beginTransaction();
+
+				medium = (Medium) session.get(Medium.class, id);
+
+				cart.getMedia().add(medium);
+
+				transaction.commit();
+			} catch (Exception ex) {
+				System.err.println("Failed to create sessionFactory object."
+						+ ex);
+				throw new ExceptionInInitializerError(ex);
+			}
+
+			request.getSession().setAttribute("cart", cart);
 			
 		} else if (request.getParameter("back") != null) {
 			/* Customer clicked back button */

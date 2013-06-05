@@ -146,7 +146,6 @@ public class Controller extends HttpServlet {
 						// Datenmanipulation ueber Transaktionen
 						transaction = session.beginTransaction();
 						
-						System.out.println(request.getParameter("album"));
 						if (!request.getParameter("album").equals("NULL")) {
 							tempAlbum = (Album) session.get(Album.class, Integer.parseInt(request.getParameter("album")));
 						} else {

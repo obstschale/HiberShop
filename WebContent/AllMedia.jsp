@@ -65,10 +65,11 @@
 						<td><% out.print(medium.getType().getName()); %></td>
 						<td>
 							<form action="ControllerAllMedia">
-								<button class="pure-button  pure-button-disabled" name="buy">Kaufen</button><br>
+								<button class="pure-button  pure-button-active" name="buy" value="<% out.print(medium.getId()); %>">Kaufen</button><br>
 								<button class="pure-button pure-button-active" name="details" value="<% out.print(medium.getId()); %>">Details</button><br>
-								<button class="pure-button  pure-button-disabled" name="play">Abspielen</button>
+								<button class="pure-button  pure-button-active" name="play" value="<% out.print(medium.getId()); %>">Abspielen</button>
 							</form>
+						</td>
 					</tr>
 					<%
 				}

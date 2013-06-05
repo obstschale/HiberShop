@@ -34,4 +34,13 @@
 		<servlet-name>ControllerMediumDetailedServlet</servlet-name>
 		<url-pattern>/ControllerMediumDetailed</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ControllerCartServlet</servlet-name>
+		<servlet-class>ctrl.ControllerCart</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControllerCartServlet</servlet-name>
+		<url-pattern>/ControllerCart</url-pattern>
+	</servlet-mapping>
 </web-app>
