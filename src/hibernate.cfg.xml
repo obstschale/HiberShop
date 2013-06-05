@@ -53,12 +53,12 @@
   		<property name="hibernate.use_sql_comments">false</property>
   		
         <!-- Drop and re-create the database schema on startup -->
-        <property name="hbm2ddl.auto">update</property>
+        <property name="hbm2ddl.auto">create</property>
 
         <!-- Names the annotated entity class -->
-        <mapping resource="model/Type.hbm.xml"/>
-        <mapping resource="model/Album.hbm.xml"/>
-        <mapping resource="model/Medium.hbm.xml"/>
+        <mapping class="model.Type"/>
+        <mapping class="model.Album"/>
+        <mapping class="model.Medium"/>
 
     </session-factory>
 

@@ -3,6 +3,14 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 /**
  * Klasse Medium: ein Medium kann ein Audio- oder ein Videomedium sein. Es
  * hat immer einen Medientyp und kann - muss aber nicht - Bestandteil eines
@@ -20,16 +28,18 @@ import java.util.List;
  * * Ein weiteres Attribut, in dem gespeichert wird, wie oft ein Medium gekauft
  * wurde.
  * 
- * (Beziehungen noch nicht beachtete)
  * @author Hans-Helge Buerger
  *
  */
+@Entity
+@Table (name="ALBUM")
 public class Album {
-	
+	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	private String name;
 	private String interpret;
 	private String cover;
+	@OneToMany(fetch=FetchType.LAZY)
 	private List<Medium> media = new ArrayList<Medium>();
 	
 	public int getId() {

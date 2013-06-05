@@ -18,8 +18,6 @@ public class TypeTest {
 		Type audio = createNewType("Audio", "/path/to/audio-icon");
 		Type video = createNewType("Video", "/path/to/video-icon");
 		
-		System.out.println(video.getName());
-		
 		try {
 			session = sf.getCurrentSession();
 			// Datenmanipulation ueber Transaktionen
