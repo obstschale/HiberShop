@@ -114,7 +114,35 @@ public class ControllerAllMedia extends HttpServlet {
 			request.getSession().setAttribute("mediumdata", medium);
 		} else if (request.getParameter("play") != null) {
 			/* Customer clicked play button */
+			Medium medium = new Medium();
+			address = "PlayMedium.jsp";
+			int id = Integer.parseInt(request.getParameter("play"));
+			
+			try {
+				/** setting up Hibernate SessionFactory **/
+				sf = HibernateUtil.getSessionFactory();
+				session = sf.getCurrentSession();
+				// Datenmanipulation ueber Transaktionen
+				transaction = session.beginTransaction();
+				
+				/* get medium object */
+				medium = (Medium) session.get(Medium.class, id);
+				/* save medium as attribute so PlayMedium.jsp has access */
+				request.getSession().setAttribute("medium", medium);
+				/* increament played in Database */
+				int played = medium.getAngehoert();
+				played++;
+				medium.setAngehoert(played);
+				session.update(medium);
 
+				transaction.commit();
+			} catch (Exception ex) {
+				System.err.println("Failed to create sessionFactory object."
+						+ ex);
+				throw new ExceptionInInitializerError(ex);
+			}
+
+			
 		} else {
 			request.setAttribute("errortext",
 					"Wierd ... Something went wront with your request O_o");
