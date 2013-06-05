@@ -10,7 +10,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<%@ include file="links.html" %>
-	<title>Insert title here</title>
+	<title>Warenkorb</title>
 </head>
 <body>
 <div class="pure-g">

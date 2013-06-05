@@ -1,8 +1,9 @@
 package ctrl;
 
+import hibernate.HibernateUtil;
+
 import java.io.IOException;
 import java.util.Iterator;
-import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -79,6 +80,30 @@ public class ControllerCart extends HttpServlet {
 			/* Customer clicked back button */
 			address = "AllMedia.jsp";
 
+		} else if (request.getParameter("backPrint") != null) {
+			/* Customer clicked back button after print */
+			address = "AllMedia.jsp";
+			
+			/* clear cart */
+			Cart cart;
+			/* get cart object if already exists
+			 * otherwise set attribute
+			 */
+			try {
+				if (request.getSession().getAttribute("cart") != null) {
+					cart = (Cart) request.getSession().getAttribute("cart");
+					cart.getMedia().clear();
+				} else {
+					cart = new Cart();
+					request.getSession().setAttribute("cart", cart);
+				}
+			} catch (NullPointerException ex) {
+				System.err.println("Failed to create cart object." + ex);
+			    throw new ExceptionInInitializerError(ex);
+			}
+			
+			request.getSession().setAttribute("cart", cart);
+			
 		} else if (request.getParameter("rmid") != null) {
 			/* remove item from list */
 			Cart cart;
@@ -111,6 +136,53 @@ public class ControllerCart extends HttpServlet {
 			}
 
 			cart = (Cart) request.getSession().getAttribute("cart");
+		} else if (request.getParameter("print") != null) {
+			/* checkout */
+			address = "Print.jsp";
+			Cart cart;
+			
+			/* get cart object if already exists
+			 * otherwise set attribute
+			 */
+			try {
+				if (request.getSession().getAttribute("cart") != null) {
+					cart = (Cart) request.getSession().getAttribute("cart");
+					/* set attribute to display number of bought items in jsp */
+					request.setAttribute("checkout", cart.getMedia().size());
+					
+					/** setting up Hibernate SessionFactory **/
+					sf = HibernateUtil.getSessionFactory();
+					
+					try {
+						session = sf.getCurrentSession();
+						// Datenmanipulation ueber Transaktionen
+						transaction = session.beginTransaction();
+						
+						/* increase attribute bought in Database for items */
+						for (Medium m : cart.getMedia() ) {
+							int bought = m.getGekauft();
+							bought++;
+							m.setGekauft(bought);
+							
+							session.update(m);
+						}
+
+						transaction.commit();
+					} catch (Exception ex) {
+						System.err.println("Failed to create sessionFactory object." + ex);
+					    throw new ExceptionInInitializerError(ex);
+					}
+				    
+				} else {
+					request.setAttribute("checkout", 0);
+				}
+			} catch (NullPointerException ex) {
+				System.err.println("Failed to create cart object." + ex);
+			    throw new ExceptionInInitializerError(ex);
+			}
+
+			cart = (Cart) request.getSession().getAttribute("cart");
+			
 		} else {
 			request.setAttribute("errortext", "Wierd ... Something went wront with your request O_o");
 			address = "ShowCart.jsp";
