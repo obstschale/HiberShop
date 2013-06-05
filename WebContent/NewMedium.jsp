@@ -31,7 +31,7 @@
 				</jsp:include>
 				<br>
 				<select name="album">
-					<option>W&auml;hle ein Album</option>
+					<option value="NULL">W&auml;hle ein Album</option>
 					<%
 						Session ses;
 						Transaction transaction;
@@ -57,7 +57,7 @@
 					%>
 				</select><br>
 				<select name="type">
-					<option>W&auml;hle einen Typen</option>
+					<option value="NULL">W&auml;hle einen Typen</option>
 					<%
 						ses = sf.getCurrentSession();
 						transaction = ses.beginTransaction();

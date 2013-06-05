@@ -56,9 +56,9 @@
         <property name="hbm2ddl.auto">update</property>
 
         <!-- Names the annotated entity class -->
-        <mapping resource="model/Type.hbm.xml"/>
-        <mapping resource="model/Album.hbm.xml"/>
-        <mapping resource="model/Medium.hbm.xml"/>
+        <mapping class="model.Type"/>
+        <mapping class="model.Album"/>
+        <mapping class="model.Medium"/>
 
     </session-factory>
 

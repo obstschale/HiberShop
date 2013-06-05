@@ -1,5 +1,12 @@
 package model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 /**
  * Klass Album: Ein Album besteht aus einem Namen, einen optionalen Interpreten
  * und einem Coverbild. Ausserdem setzt sich ein Album aus mehreren Medien
@@ -7,10 +14,14 @@ package model;
  * @author Hans-Helge Buerger
  *
  */
+@Entity
+@Table (name="MEDIUM")
 public class Medium {
-	
+	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
+	@ManyToOne
 	private Type type;
+	@ManyToOne
 	private Album album;
 	private String titel;
 	private String interpret;

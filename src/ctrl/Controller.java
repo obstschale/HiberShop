@@ -71,11 +71,17 @@ public class Controller extends HttpServlet {
 			} else if (submitBtn.equals("Weiter: Medium speichern")) {
 				address = "MediumProcessing.jsp";
 				Medium medium = (Medium) request.getSession().getAttribute("mediumdata");
+				Album album = medium.getAlbum();
+				int albumId = album.getId();
 				
 				try {
 					session = sf.getCurrentSession();
 					// Datenmanipulation ueber Transaktionen
 					transaction = session.beginTransaction();
+					album = (Album) session.get(Album.class, albumId);
+					album.getMedia().add(medium);
+					
+					session.save(album);
 					session.save(medium);
 					transaction.commit();
 				} catch (Exception ex) {
@@ -140,8 +146,19 @@ public class Controller extends HttpServlet {
 						// Datenmanipulation ueber Transaktionen
 						transaction = session.beginTransaction();
 						
-						tempAlbum = (Album) session.get(Album.class, Integer.parseInt(request.getParameter("album")));
-						tempType = (Type) session.get(Type.class, Integer.parseInt(request.getParameter("type")));
+						System.out.println(request.getParameter("album"));
+						if (!request.getParameter("album").equals("NULL")) {
+							tempAlbum = (Album) session.get(Album.class, Integer.parseInt(request.getParameter("album")));
+						} else {
+							tempAlbum = null;
+						}
+						
+						if (!request.getParameter("type").equals("NULL")) {
+							tempType = (Type) session.get(Type.class, Integer.parseInt(request.getParameter("type")));							
+						} else {
+							tempType = null;
+						}
+
 						
 						transaction.commit();
 					} catch (Exception ex) {
