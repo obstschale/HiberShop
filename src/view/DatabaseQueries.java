@@ -43,7 +43,7 @@ public class DatabaseQueries {
 	}
 
 	public List<Medium> getTopBoughtMedia(Session session, Transaction transaction, int limit) {
-		Query query = session.createQuery("FROM Medium WHERE Gekauft >= " + limit);
+		Query query = session.createQuery("FROM Medium WHERE Gekauft >= " + limit + "ORDER BY Gekauft DESC");
 		@SuppressWarnings("unchecked")
 		List<Medium> media = query.list();	
 		return media;
