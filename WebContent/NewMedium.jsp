@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="java.io.*"  %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Iterator" %>
 <%@ page import="model.Album" %>
 <%@ page import="model.Type" %>
 <%@ page import="view.DatabaseQueries" %>
@@ -23,7 +25,7 @@
 	    </div>
 	    
 	    <div class="pure-u-1-2 main"> 
-			<form action="Controller">
+			<form action="ControllerMedium" enctype="multipart/form-data" method="post">
 				<jsp:include page="ErrorText.jsp">
 					<jsp:param value="${requestScope.errortext}" name="errortext"/>
 				</jsp:include>
@@ -79,7 +81,7 @@
 				<input type="text" name="titel" placeholder="Titel" /><br>
 				<input type="text" name="interpret" placeholder="Interpret" /><br>
 				<input type="number" name="laenge" placeholder="L&auml;nge" step="any" min="0" max="20" /><br>
-				<input type="number" name="dateigroesse" placeholder="Dateigr&ouml;&szlig;e" step="any" min="0" max="100" /><br>
+				<!-- <input type="number" name="dateigroesse" placeholder="Dateigr&ouml;&szlig;e" step="any" min="0" max="100" /><br> -->
 				<input type="file" name="pfad" value="Medium hochladen" /><br>
 				<br>
 				<input type="submit" class="pure-button pure-button-success" name="confirmButton" value="Neues Medium" />		

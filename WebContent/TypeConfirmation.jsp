@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page import="model.Type" %>
+<%@ page import="java.io.IOException;" %>
+<!DOCTYPE html>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -16,8 +18,29 @@
 	    
 	    <div class="pure-u-1-2 main">
 		    <h1>Type Confirmation</h1>
-			<p> Folgender Type wurde an diese Seite geschickt: <b>${typedata.name}</b>.<br>
-			<p> Folgendes Icon wurde an diese Seite geschickt: <b>${typedata.icon}</b>.
+			<p> Folgender Type wurde an diese Seite geschickt: <b>${typedata.name}</b>.</p>
+			<p>
+			<%
+				Type type;
+				try {
+					type = (Type) request.getSession().getAttribute("typedata");
+					if(type.getIcon() != null) {
+						%>
+						Folgendes Icon wurde an diese Seite geschickt: <br>
+						<img src="${typedata.icon}" alt="icon of type" width="25" />
+						<%
+					} else {
+						%>
+						Leider wurde kein Icon hochgeladen.
+						<%
+					}
+				} catch (NullPointerException ex) {
+					System.err.println("Failed to create audio/video object." + ex);
+					throw new ExceptionInInitializerError(ex);
+				}
+			
+			%>
+			</p>
 			<form action="Controller">
 				<input type = "submit" class="pure-button pure-button-error" name = "backButton" value="Zurück zu New Type">
 				<input type = "submit" class="pure-button pure-button-success" name = "submitButton" value="Weiter: Type speichern">

@@ -8,17 +8,16 @@
 	<title>Insert title here</title>
 </head>
 <body>
-<h1>Welcome to HiberShop</h1>
-	<div class="pure-g">
-	
-	    <div class="pure-u-1-2 sidebar">
-	    		<%@ include file="navigation.html" %>
-	    </div>
-	    
-	    <div class="pure-u-1-2 main">
-		    <p>Hier könnte Ihre Werbung stehen.</p>
-	    </div>
-	
-	</div>
+<div class="pure-g">
+    <div class="pure-u-1-2 sidebar">
+    		<%@ include file="navigation.html" %>
+    </div>
+    
+    <div class="pure-u-1-2 main">
+    	<h1>Welcome to HiberShop</h1>
+	    <p>Hier könnte Ihre Werbung stehen.</p>
+    </div>
+
+</div>
 </body>
 </html>

@@ -43,4 +43,31 @@
 		<servlet-name>ControllerCartServlet</servlet-name>
 		<url-pattern>/ControllerCart</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ControllerAlbumServlet</servlet-name>
+		<servlet-class>ctrl.ControllerAlbum</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControllerAlbumServlet</servlet-name>
+		<url-pattern>/ControllerAlbum</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ControllerTypeServlet</servlet-name>
+		<servlet-class>ctrl.ControllerType</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControllerTypeServlet</servlet-name>
+		<url-pattern>/ControllerType</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ControllerMediumServlet</servlet-name>
+		<servlet-class>ctrl.ControllerMedium</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControllerMediumServlet</servlet-name>
+		<url-pattern>/ControllerMedium</url-pattern>
+	</servlet-mapping>
 </web-app>

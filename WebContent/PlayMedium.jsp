@@ -21,8 +21,9 @@
 			<jsp:param value="${requestScope.errortext}" name="errortext"/>
 		</jsp:include>
 		<%
+		Medium medium;
 		try {
-			Medium medium = (Medium) request.getSession().getAttribute("medium");
+			medium = (Medium) request.getSession().getAttribute("medium");
 			String pfad;	
 			if (medium.getPfad() != null)
 				pfad = medium.getPfad();
@@ -38,11 +39,12 @@
 				%>
 				<video width="320" height="240" src= "<%= pfad %>" autobuffer controls>
 				   <div class="video-fallback">
-				     <br>Sie benötigen einen Browser, der HTML5 unterstützt.
-				</div> </video>
+				     <br>Sie ben&ouml;tigen einen Browser, der HTML5 unterst&uuml;zt.
+					</div>
+				</video>
 				<%
 			} else {
-				%><p>Das ist jetzt aber doof. Sieht so aus, also ob es für diesen Track keine Datei zum abspielen gibt.</p><%
+				%><p>Das ist jetzt aber doof. Sieht so aus, also ob es f&uuml;r diesen Track keine Datei zum abspielen gibt.</p><%
 			}
 		} catch (NullPointerException ex) {
 			System.err.println("Failed to create audio/video object." + ex);
@@ -50,6 +52,7 @@
 		}
 		%>
 		<form action="${controller}">
+			<input type="hidden" name="mediumId" value="<% out.print(medium.getId()); %>"/>
 			<input type="submit" class="pure-button pure-button-secondary" name="backPlay" value="Zur&uuml;ck" />
 		</form>
 	</div>

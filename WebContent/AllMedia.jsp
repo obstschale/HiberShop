@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="java.io.*"  %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Iterator" %>
 <%@ page import="model.Medium" %>
 <%@ page import="model.Type" %>
 <%@ page import="model.Album" %>

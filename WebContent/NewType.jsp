@@ -15,7 +15,7 @@
 	    </div>
 	    
 	    <div class="pure-u-1-2 main">
-			<form action="Controller">
+			<form action="ControllerType" enctype="multipart/form-data" method="post">
 				<jsp:include page="ErrorText.jsp">
 					<jsp:param value="${requestScope.errortext}" name="errortext" />
 				</jsp:include>

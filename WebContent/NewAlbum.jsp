@@ -15,15 +15,12 @@
 	    </div>
 	    
 	    <div class="pure-u-1-2 main">
-		    <form action="Controller">
+		    <form action="ControllerAlbum" enctype="multipart/form-data" method="post">
 				<jsp:include page="ErrorText.jsp">
 					<jsp:param value="${requestScope.errortext}" name="errortext"/>
 				</jsp:include>
 				<input type="text" name="name" placeholder="Album name" required />
 				<input type="text" name="interpret" placeholder="Interpret" />
-				<select>
-					<option>No Selection</option>
-				</select>
 				<input type="file" name="cover" placeholder="Cover" />
 				<br>
 				<input type="submit" class="pure-button pure-button-success" name="confirmButton" value="Neues Album" />		
