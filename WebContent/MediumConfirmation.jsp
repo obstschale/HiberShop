@@ -2,75 +2,76 @@
     pageEncoding="ISO-8859-1"%>
 <%@ page import="model.Medium" %>
 <%@ page import="java.io.IOException" %>
-<!DOCTYPE html>
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<%@ include file="links.html" %>
-	<title>Album Confirmation</title>
-</head>
-<body>
-	<div class="pure-g">
-	
-	    <div class="pure-u-1-2 sidebar">
-	    		<%@ include file="navigation.html" %>
-	    </div>
-	    
-	    <div class="pure-u-1-2 main">
-		    <h1>Medium Confirmation</h1>
-		    <%
-		    Medium medium;
-			try {
+
+<%@ include file="include/header.jsp" %>
+
+
+<div class="pure-g">
+    <div class="pure-u-1-2 main">
+	    <h1>Medium Confirmation</h1>
+	    <%
+	    Medium medium;
+		try {
+			if (request.getSession().getAttribute("mediumdata") != null) {
 				medium = (Medium) request.getSession().getAttribute("mediumdata");
-		    %>
-			<p>Folgender Type wurde an diese Seite geschickt: <b><%= medium.getType().getName() %></b>.</p>
-			<p>Folgender Album Name wurde an diese Seite geschickt: <b><%= medium.getAlbum().getName() %></b>.</p>
-			<p>Folgender Titel wurde an diese Seite geschickt: <b>${mediumdata.titel}</b>.</p>
-			<p>Folgender Interpret wurde an diese Seite geschickt: <b>${mediumdata.interpret}</b>.</p>
-			<p>Folgende L&auml;nge wurde an diese Seite geschickt: <b>${mediumdata.laenge}</b>.</p>
-			<p>Folgende Dateigr&ouml;&szlig;e wurde an diese Seite geschickt: <b>${mediumdata.dateigroesse}</b>.</p>
-			
-			<p>
-			<%
+				String albumName = "";
+				if(medium.getAlbum() != null){
+					albumName = medium.getAlbum().getName();
+				} else {
+					albumName = "kein Album ausgew&auml;hlt";
+				}
+			    %>
+				<p>Folgender Type wurde an diese Seite geschickt: <b><%= medium.getType().getName() %></b>.</p>
+				<p>Folgender Album Name wurde an diese Seite geschickt: <b><%= albumName %></b>.</p>
+				<p>Folgender Titel wurde an diese Seite geschickt: <b>${mediumdata.titel}</b>.</p>
+				<p>Folgender Interpret wurde an diese Seite geschickt: <b>${mediumdata.interpret}</b>.</p>
+				<p>Folgende L&auml;nge wurde an diese Seite geschickt: <b>${mediumdata.laenge}</b>.</p>
+				<p>Das Medium hat eine Dateigr&ouml;&szlig;e von: <b><%= medium.getDateigroesseMB() %></b>.</p>
 				
-					if(medium.getPfad() != null) {
-						if(medium.getPfad().matches("(.*)(.mp3|.ogg|.midi|.wav)$")) {
-							%>
-							Folgender Song  wurde an diese Seite geschickt: <br>
-							<audio preload controls>
-				       			<source src="${mediumdata.pfad}">
-							</audio>
-							<%
-						} else if(medium.getPfad().matches("(.*)(.mp4)$")) {
-							%>
-							Folgendes Video  wurde an diese Seite geschickt: <br>
-							<video width="320" height="240" src= "${mediumdata.pfad}" autobuffer controls>
-							   <div class="video-fallback">
-							     <br>Sie benötigen einen Browser, der HTML5 unterstützt.
-								</div>
-							</video>
-							<%
-						}
-						
-					} else {
+				<p>
+				<%
+			
+				if(medium.getPfad() != null) {
+					if(medium.getPfad().matches("(.*)(.mp3|.ogg|.midi|.wav)$")) {
 						%>
-						Leider wurde kein Coverbild hochgeladen.
+						Folgender Song  wurde an diese Seite geschickt: <br>
+						<audio preload controls>
+			       			<source src="${mediumdata.pfad}">
+						</audio>
+						<%
+					} else if(medium.getPfad().matches("(.*)(.mp4)$")) {
+						%>
+						Folgendes Video  wurde an diese Seite geschickt: <br>
+						<video width="320" height="240" src= "${mediumdata.pfad}" autobuffer controls>
+						   <div class="video-fallback">
+						     <br>Sie benötigen einen Browser, der HTML5 unterstützt.
+							</div>
+						</video>
 						<%
 					}
-				} catch (NullPointerException ex) {
-					System.err.println("Failed to create audio/video object." + ex);
-					throw new ExceptionInInitializerError(ex);
+					
+				} else {
+					%>
+					Leider wurde kein Coverbild hochgeladen.
+					<%
 				}
-			
-			%>
-			</p>
-			
-			<form action="Controller">
-				<input type = "submit" class="pure-button pure-button-error" name = "backButton" value="Zur&uuml;ck zu New Medium">
-				<input type = "submit" class="pure-button pure-button-success" name = "submitButton" value="Weiter: Medium speichern">
-			</form>
-	    </div>
-	
-	</div>
+			}
+		} catch (NullPointerException ex) {
+			System.err.println("Failed to create audio/video object." + ex);
+			throw new ExceptionInInitializerError(ex);
+		}
+		
+		%>
+		</p>
+		
+		<form action="ControllerMedium" method="post">
+			<input type = "submit" class="pure-button pure-button-error" name = "backButton" value="Zur&uuml;ck zu New Medium">
+			<input type = "submit" class="pure-button pure-button-success" name = "submitButton" value="Weiter: Medium speichern">
+		</form>
+    </div>
+</div>
 </body>
 </html>
+
+<%@ include file="include/footer.jsp" %>
+

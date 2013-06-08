@@ -5,90 +5,97 @@
 <%@ page import="java.util.Iterator" %>
 <%@ page import="model.Album" %>
 <%@ page import="model.Type" %>
-<%@ page import="view.DatabaseQueries" %>
-<%@ page import="hibernate.HibernateUtil" %>
-<%@ page import="org.hibernate.Session" %>
-<%@ page import="org.hibernate.SessionFactory" %>
-<%@ page import="org.hibernate.Transaction" %>
-<!DOCTYPE html>
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<%@ include file="links.html" %>
-	<title>New Medium</title>
-</head>
-<body>
-	<div class="pure-g">
-	
-	    <div class="pure-u-1-2 sidebar">
-	    		<%@ include file="navigation.html" %>
-	    </div>
-	    
-	    <div class="pure-u-1-2 main"> 
-			<form action="ControllerMedium" enctype="multipart/form-data" method="post">
-				<jsp:include page="ErrorText.jsp">
-					<jsp:param value="${requestScope.errortext}" name="errortext"/>
-				</jsp:include>
-				<br>
-				<select name="album">
+
+<%@ include file="include/header.jsp" %>
+
+
+<div class="pure-g">
+    <div class="pure-u-1-2 main">
+    <h2>Neues Medium</h2>
+    
+		<form class="pure-form-aligned pure-form" action="ControllerMedium" enctype="multipart/form-data" method="post">
+			
+			<div class="pure-control-group">
+	            <label for="titel">Titel</label>
+				<input type="text" name="titel" placeholder="Titel" required/>
+			</div>
+			
+			<div class="pure-control-group">
+	            <label for="interpret">Interpret</label>
+				<input type="text" name="interpret" placeholder="Interpret" required/>
+			</div>
+			
+			<div class="pure-control-group">
+	            <label for="album">Album</label>
+	            <select name="album">
 					<option value="NULL" disabled>W&auml;hle ein Album</option>
-					<option value="NULL"><em>Kein Album</em></option>
+					<option value="NULL">Kein Album</option>
+					
+					<%! @SuppressWarnings("unchecked") %>
 					<%
-						Session ses;
-						Transaction transaction;
-						SessionFactory sf = HibernateUtil.getSessionFactory();
-						DatabaseQueries query = new DatabaseQueries();
-						ses = sf.getCurrentSession();
-						transaction = ses.beginTransaction();
-						
-						List<Album> albums = query.getAllAlbums(ses, transaction);
-						Iterator<Album> iter1 = albums.iterator();
-						while (iter1.hasNext()) {
-							Album album = iter1.next();
-							String name = album.getName();
-							int id = album.getId(); %>
-							<option value="<% out.print(id); %>">
-							<% out.print(name); %>
-							</option>
+						if(request.getAttribute("albumList") != null) {
+							List<Album> albums = (List<Album>) request.getAttribute("albumList");
+							Iterator<Album> iter1 = albums.iterator();
+							while (iter1.hasNext()) {
+								Album album = iter1.next();
+								String name = album.getName();
+								int id = album.getId(); %>
+								<option value="<% out.print(id); %>">
+								<% out.print(name); %>
+								</option>
+								<%
+							}
+						} else {
+							%>
+							<option disabled>Lieder kein Album vorhanden :(</option>
 							<%
 						}
-
-						transaction.commit();
-						
 					%>
-				</select><br>
+				</select>
+	        </div>
+			
+			<div class="pure-control-group">
+	            <label for="type">Type</label>
 				<select name="type">
 					<option value="NULL" disabled>W&auml;hle einen Typen</option>
 					<%
-						ses = sf.getCurrentSession();
-						transaction = ses.beginTransaction();
-						
-						List<Type> types = query.getAllTypes(ses, transaction);
-						Iterator<Type> iter2 = types.iterator();
-						while (iter2.hasNext()) {
-							Type type = iter2.next();
-							String name = type.getName();
-							int id = type.getId(); %>
-							<option value="<% out.print(id); %>">
-							<% out.print(name); %>
-							</option>
+						if (request.getAttribute("typeList") != null) {
+							List<Type> types = (List<Type>) request.getAttribute("typeList");
+							Iterator<Type> iter2 = types.iterator();
+							while (iter2.hasNext()) {
+								Type type = iter2.next();
+								String name = type.getName();
+								int id = type.getId(); %>
+								<option value="<% out.print(id); %>">
+								<% out.print(name); %>
+								</option>
+								<%
+							}
+						} else {
+							%>
+							<option disabled>Bitte zuerst einen Type erstellen!</option>
 							<%
 						}
-						
-						transaction.commit();
 					%>
-				</select><br>
-				<input type="text" name="titel" placeholder="Titel" /><br>
-				<input type="text" name="interpret" placeholder="Interpret" /><br>
-				<input type="number" name="laenge" placeholder="L&auml;nge" step="any" min="0" max="20" /><br>
-				<!-- <input type="number" name="dateigroesse" placeholder="Dateigr&ouml;&szlig;e" step="any" min="0" max="100" /><br> -->
-				<input type="file" name="pfad" value="Medium hochladen" /><br>
-				<br>
+				</select>
+			</div>
+			
+			<div class="pure-control-group">
+	            <label for="laenge">Spieldauer</label>
+				<input type="number" name="laenge" placeholder="L&auml;nge" step="any" min="0" max="20" required/>
+			</div>
+			
+			<div class="pure-control-group">
+	            <label for="pfad">Datei</label>
+				<input type="file" name="pfad" value="Medium hochladen" required/>
+			</div>
+			
+			<div class="pure-controls">
 				<input type="submit" class="pure-button pure-button-success" name="confirmButton" value="Neues Medium" />		
 				<input type="reset" class="pure-button pure-button-error" name="cancle" value="Abbrechen" />
-			</form>
-	    </div>
-	
-	</div>
-</body>
-</html>
+			</div>
+		</form>
+    </div>
+</div>
+
+<%@ include file="include/footer.jsp" %>

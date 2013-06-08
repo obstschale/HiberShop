@@ -4,21 +4,30 @@
 <%@ page import="java.io.IOException" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Iterator" %>
-<!DOCTYPE html>
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<%@ include file="links.html" %>
-	<title>Statistiken</title>
-</head>
-<body>
-<div class="pure-g">
-	<div class="pure-u-1-2 sidebar">
-			<%@ include file="navigation.html"%>
-	</div>
 
+<%@ include file="include/header.jsp" %>
+
+
+<div class="pure-g">
 	<div class="pure-u-1-2 main">
 		<h2>Statistiken</h2>
+		
+		<form class="pure-form-aligned pure-form"  action="ControllerStatistics" method="post">
+			
+			<div class="pure-control-group">
+				<label  for="limit">Wie oft sollte ein Titel gekauft worden sein?</label>
+				<input type="number" value="1" name="limit" min="0"/>
+			</div>
+			
+			<div class="pure-control-group">
+				<label>Wie viele Titel sollen in TopPlayed angezeigt werden?</label>
+				<input type="number" value="5" name="max" min="0" />
+			</div>
+			
+			<div class="pure-controls">
+				<input type="submit" class="pure-button pure-button-secondary" name="stats" value="Statistiken Anzeigen" />
+			</div>
+		</form>
 		<%! @SuppressWarnings("unchecked") %>
 		<%
 		List<Medium> topBought = null;
@@ -43,10 +52,16 @@
 				int i = 1;
 				while (iter1.hasNext()) {
 					Medium medium = iter1.next();
+					
+					String albumName = "";
+					if(medium.getAlbum() != null){
+						albumName = medium.getAlbum().getName();
+					}
+					
 					out.println("<tr>");
 					out.println("<td>" + i + "</td>");
 					out.println("<td>" + medium.getTitel() + "</td>");
-					out.println("<td>" + medium.getAlbum().getName() + "</td>"); 
+					out.println("<td>" + albumName + "</td>"); 
 					out.println("<td>" + medium.getGekauft() + "</td>");
 					out.println("</tr>");
 					i++;
@@ -74,10 +89,16 @@
 				int i = 1;
 				while (iter2.hasNext()) {
 					Medium medium = iter2.next();
+
+					String albumName = "";
+					if(medium.getAlbum() != null){
+						albumName = medium.getAlbum().getName();
+					}
+					
 					out.println("<tr>");
 					out.println("<td>" + i + "</td>");
 					out.println("<td>" + medium.getTitel() + "</td>");
-					out.println("<td>" + medium.getAlbum().getName() + "</td>"); 
+					out.println("<td>" + albumName + "</td>"); 
 					out.println("<td>" + medium.getAngehoert() + "</td>");
 					out.println("</tr>");
 					i++;
@@ -87,11 +108,11 @@
 				<%
 			}
 		} catch (NullPointerException ex) {
-			System.err.println("Failed to create audio/video object." + ex);
+			System.err.println("Failed to create statistics. " + ex);
 			throw new ExceptionInInitializerError(ex);
 		}
 		%>
 	</div>
 </div>
-</body>
-</html>
+
+<%@ include file="include/footer.jsp" %>

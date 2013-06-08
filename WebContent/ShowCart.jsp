@@ -1,29 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="model.Medium" %>
-<%@ page import="view.Cart" %>
+<%@ page import="backend.Cart" %>
 <%@ page import="java.io.IOException;" %>
-<!DOCTYPE html>
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<%@ include file="links.html" %>
-	<title>Warenkorb</title>
-</head>
-<body>
+
+<%@ include file="include/header.jsp" %>
+
+
 <div class="pure-g">
-	
-    <div class="pure-u-1-2 sidebar">
-    	<%@ include file="navigation.html" %>
-    </div>
-    
     <div class="pure-u-1-2 main">
     <img src="${bild}" />
     	<h2>Warenkorb</h2>
-    	
-		<jsp:include page="ErrorText.jsp">
-			<jsp:param value="${requestScope.errortext}" name="errortext"/>
-		</jsp:include>
     	<table class="pure-table pure-table-bordered">
 	    	<thead>
 		        <tr>
@@ -75,13 +62,14 @@
 				request.getSession().setAttribute("cart", cart);
 			%>	    
     	</table>
+    	<br>
     	<form action="ControllerCart">
-			<button class="pure-button pure-button-active" name="back" value="back">Zur&uuml;ck</button>
-			<button class="pure-button pure-button-active" name="clean" value="empty">Leeren</button>
-			<button class="pure-button  pure-button-active" name="print" value="print">Drucken</button>
+			<button class="pure-button pure-button-warning" name="back" value="back">Zur&uuml;ck</button>
+			<button class="pure-button pure-button-error" name="clean" value="empty">Leeren</button>
+			<button class="pure-button  pure-button-success" name="print" value="print">Drucken</button>
 		</form>
     </div>
 
 </div>
-</body>
-</html>
+
+<%@ include file="include/footer.jsp" %>

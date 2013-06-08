@@ -17,7 +17,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import view.Cart;
+import backend.Cart;
 
 public class ControllerCart extends HttpServlet {
 

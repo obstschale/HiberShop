@@ -1,33 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<%@ include file="links.html" %>
-	<title>New Album</title>
-</head>
-<body>
-	<div class="pure-g">
-	
-	    <div class="pure-u-1-2 sidebar">
-	    		<%@ include file="navigation.html" %>
-	    </div>
-	    
-	    <div class="pure-u-1-2 main">
-		    <form action="ControllerAlbum" enctype="multipart/form-data" method="post">
-				<jsp:include page="ErrorText.jsp">
-					<jsp:param value="${requestScope.errortext}" name="errortext"/>
-				</jsp:include>
+
+<%@ include file="include/header.jsp" %>
+
+
+<div class="pure-g">	    
+    <div class="pure-u-1-2 main">
+    <h2>Neues Album</h2>
+    
+	    <form class="pure-form-aligned pure-form"  action="ControllerAlbum" enctype="multipart/form-data" method="post">
+
+			<div class="pure-control-group">
+	            <label for="name">Albumname</label>
 				<input type="text" name="name" placeholder="Album name" required />
+			</div>
+			
+			<div class="pure-control-group">
+	            <label for="interpret">Interpret</label>
 				<input type="text" name="interpret" placeholder="Interpret" />
+			</div>
+			
+			<div class="pure-control-group">
+	            <label for="cover">Cover</label>
 				<input type="file" name="cover" placeholder="Cover" />
-				<br>
+			</div>
+			
+			<div class="pure-controls">
 				<input type="submit" class="pure-button pure-button-success" name="confirmButton" value="Neues Album" />		
 				<input type="reset" class="pure-button pure-button-error" name="cancle" value="Abbrechen" />
-			</form>
-	    </div>
-	
-	</div>	
-</body>
-</html>
+			</div>
+		</form>
+    </div>
+</div>
+
+<%@ include file="include/footer.jsp" %>

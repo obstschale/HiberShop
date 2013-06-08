@@ -1,18 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<%@ include file="links.html" %>
-	<title>Warenkorb Drucken</title>
-</head>
-<body>
+
+<%@ include file="include/header.jsp" %>
+
+
 <div class="pure-g">
-    <div class="pure-u-1-2 sidebar">
-    	<%@ include file="navigation.html" %>
-    </div>
-    
     <div class="pure-u-1-2 main">
     	<h2>Warenkorb Drucken</h2>
     	<p>Es wurden ${checkout} Titel gedruckt.</p>
@@ -21,5 +13,5 @@
     	</form>
     </div>
 </div>
-</body>
-</html>
+
+<%@ include file="include/footer.jsp" %>

@@ -70,4 +70,13 @@
 		<servlet-name>ControllerMediumServlet</servlet-name>
 		<url-pattern>/ControllerMedium</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ControllerStatisticsServlet</servlet-name>
+		<servlet-class>ctrl.ControllerStatistics</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControllerStatisticsServlet</servlet-name>
+		<url-pattern>/ControllerStatistics</url-pattern>
+	</servlet-mapping>
 </web-app>

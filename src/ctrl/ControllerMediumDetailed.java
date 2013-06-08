@@ -1,7 +1,5 @@
 package ctrl;
 
-import hibernate.HibernateUtil;
-
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,7 +11,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import view.Cart;
+import backend.Cart;
+import backend.DatabaseQueries;
 
 import model.Medium;
 
@@ -25,7 +24,7 @@ public class ControllerMediumDetailed extends HttpServlet {
 	SessionFactory sf;
 	
 	@Override
-	protected void doGet(HttpServletRequest request,
+	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		
 		String address = null;
@@ -34,55 +33,40 @@ public class ControllerMediumDetailed extends HttpServlet {
 		if (request.getParameter("buy") != null) {
 			/* Customer clicked buy button */
 			Medium medium = new Medium();
-			Cart cart;
 			address = "AllMedia.jsp";
 
 			int id = Integer.parseInt(request.getParameter("buy"));
 
-			/*
-			 * get cart object if already exists otherwise set attribute
-			 */
-			try {
-				if (request.getSession().getAttribute("cart") != null) {
-					cart = (Cart) request.getSession().getAttribute("cart");
-				} else {
-					cart = new Cart();
-					request.getSession().setAttribute("cart", cart);
-				}
-			} catch (NullPointerException ex) {
-				System.err.println("Failed to create cart object." + ex);
-				throw new ExceptionInInitializerError(ex);
-			}
+			/* get cart object if already exists otherwise set attribute */
+			Cart cart = ControllerAllMedia.getSessionCart(request);
 
 			try {
-				/** setting up Hibernate SessionFactory **/
-				sf = HibernateUtil.getSessionFactory();
-				session = sf.getCurrentSession();
-				// Datenmanipulation ueber Transaktionen
-				transaction = session.beginTransaction();
-
-				medium = (Medium) session.get(Medium.class, id);
-
+				/* get Medium from DB */
+				medium = DatabaseQueries.getMediumById(id);
+				
+				/* check if Medium is already in Cart */
 				Boolean notInList = true;
 				for (Medium m : cart.getMedia() ) {
 					if (m.getId() == id)
 						notInList = false;
 				}
-				if (notInList)
+				if (notInList) {
 					cart.getMedia().add(medium);
-
-				transaction.commit();
+				}
+				
+				request.getSession().setAttribute("cart", cart);
+				ControllerAllMedia.loadAllMedia(request);
+				
 			} catch (Exception ex) {
-				System.err.println("Failed to create sessionFactory object."
-						+ ex);
-				throw new ExceptionInInitializerError(ex);
+				System.err.println("Failed to buy Object object." + ex);
+				ex.printStackTrace();
+				request.setAttribute("errortext", "Das hat wohl nicht geklappt, das Lied in den Warenkorb zu legen.");
 			}
-
-			request.getSession().setAttribute("cart", cart);
 			
 		} else if (request.getParameter("back") != null) {
 			/* Customer clicked back button */
 			address = "AllMedia.jsp";
+			ControllerAllMedia.loadAllMedia(request);
 			
 		} else if (request.getParameter("play") != null) {
 			/* Customer clicked play button */
@@ -91,63 +75,26 @@ public class ControllerMediumDetailed extends HttpServlet {
 			int id = Integer.parseInt(request.getParameter("play"));
 
 			try {
-				/** setting up Hibernate SessionFactory **/
-				sf = HibernateUtil.getSessionFactory();
-				session = sf.getCurrentSession();
-				// Datenmanipulation ueber Transaktionen
-				transaction = session.beginTransaction();
-
-				/* get medium object */
-				medium = (Medium) session.get(Medium.class, id);
+				
+				/* increase attribute Angehoert in DB by one */
+				DatabaseQueries.increasePlayedofMedium(id);
+				
 				/* save medium as attribute so PlayMedium.jsp has access */
-				request.getSession().setAttribute("medium", medium);
-				/* increament played in Database */
-				int played = medium.getAngehoert();
-				played++;
-				medium.setAngehoert(played);
-				session.update(medium);
+				request.getSession().setAttribute("mediumdata", medium);
+				
+				/* this attribute sets the action of the form in PlayMedium.jsp
+				 * so the user comes back to Medium.jsp by clicking 
+				 * on back.
+				 */
+				request.setAttribute("controller", "ControllerMediumDetailed");
 
-				transaction.commit();
 			} catch (Exception ex) {
-				System.err.println("Failed to create sessionFactory object."
-						+ ex);
-				throw new ExceptionInInitializerError(ex);
+				System.err.println("Failed to create play object." + ex);
+				ex.printStackTrace();
+				request.getSession().setAttribute("errortext", "Das hat irgendwie nicht geklappt mit dem abspielen. Sorry :(");
+				address = "AllMedia.jsp";	
 			}
 
-			request.setAttribute("controller", "ControllerMediumDetailed");
-
-			
-		} else if (request.getParameter("backPlay") != null) {
-			/* Customer clicked details button */
-			Medium medium = new Medium();
-
-			address = "Medium.jsp";
-
-			int id = Integer.parseInt(request.getParameter("mediumId"));
-
-			try {
-				/** setting up Hibernate SessionFactory **/
-				sf = HibernateUtil.getSessionFactory();
-				session = sf.getCurrentSession();
-				// Datenmanipulation ueber Transaktionen
-				transaction = session.beginTransaction();
-
-				medium = (Medium) session.get(Medium.class, id);
-				request.getSession().setAttribute("dateigroesse",
-						medium.getDateigroesseMB());
-				request.getSession().setAttribute("album",
-						medium.getType().getName());
-				request.getSession().setAttribute("type",
-						medium.getAlbum().getName());
-
-				transaction.commit();
-			} catch (Exception ex) {
-				System.err.println("Failed to create sessionFactory object."
-						+ ex);
-				throw new ExceptionInInitializerError(ex);
-			}
-
-			request.getSession().setAttribute("mediumdata", medium);
 		} else {
 			request.setAttribute("errortext", "Wierd ... Something went wront with your request O_o");
 			address = "AllMedia.jsp";

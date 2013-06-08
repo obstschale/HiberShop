@@ -1,25 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="model.Medium" %>
-<!DOCTYPE html>
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<%@ include file="links.html" %>
-	<title>Insert title here</title>
-</head>
-<body>
 
-<div class="pure-g">
-	
-    <div class="pure-u-1-2 sidebar">
-    	<%@ include file="navigation.html" %>
-    </div>
-    
+<%@ include file="include/header.jsp" %>
+
+<div class="pure-g">    
     <div class="pure-u-1-2 main">
-		<jsp:include page="ErrorText.jsp">
-			<jsp:param value="${requestScope.errortext}" name="errortext"/>
-		</jsp:include>
     	<table class="pure-table pure-table-bordered">
 	    	<thead>
 		        <tr>
@@ -42,13 +28,12 @@
 				<td>${type}</td>
 			</tr>
     	</table>
-    	<form action="ControllerMediumDetailed">
+    	<form action="ControllerMediumDetailed" method="post">
 			<button class="pure-button pure-button-warning" name="back" value="back">Zur&uuml;ck</button>
 			<button class="pure-button pure-button-success" name="buy" value="${mediumdata.id}">Kaufen</button>
 			<button class="pure-button  pure-button-secondary" name="play" value="${mediumdata.id}">Abspielen</button>
 		</form>
     </div>
-
 </div>
-</body>
-</html>
+
+<%@ include file="include/footer.jsp" %>

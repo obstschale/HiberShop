@@ -2,33 +2,24 @@
     pageEncoding="ISO-8859-1"%>
 <%@ page import="model.Medium" %>
 <%@ page import="java.io.IOException;" %>
-<!DOCTYPE html>
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<%@ include file="links.html" %>
-	<title>Play Medium</title>
-</head>
-<body>
+
+<%@ include file="include/header.jsp" %>
+
+
 <div class="pure-g">
-	<div class="pure-u-1-2 sidebar">
-   		<%@ include file="navigation.html" %>
-    </div>
-    
     <div class="pure-u-1-2 main">
-		<h2>Play Medium</h2>
-		<jsp:include page="ErrorText.jsp">
-			<jsp:param value="${requestScope.errortext}" name="errortext"/>
-		</jsp:include>
 		<%
 		Medium medium;
 		try {
-			medium = (Medium) request.getSession().getAttribute("medium");
+			
+			medium = (Medium) request.getSession().getAttribute("mediumdata");
 			String pfad;	
-			if (medium.getPfad() != null)
+			if (medium.getPfad() != null) {
 				pfad = medium.getPfad();
-			else
+				out.println("<h2>" + medium.getTitel() + " von " + medium.getInterpret() + "</h2>");
+			} else {
 				pfad = "";
+			}
 			if (pfad.matches("(.*)(.mp3|.ogg|.midi|.wav)$")) {
 				%>
 				<audio preload controls>
@@ -51,11 +42,11 @@
 			throw new ExceptionInInitializerError(ex);
 		}
 		%>
-		<form action="${controller}">
-			<input type="hidden" name="mediumId" value="<% out.print(medium.getId()); %>"/>
+		<br>
+		<form action="ControllerAllMedia" method="post">
 			<input type="submit" class="pure-button pure-button-secondary" name="backPlay" value="Zur&uuml;ck" />
 		</form>
 	</div>
 </div>
-</body>
-</html>
+
+<%@ include file="include/footer.jsp" %>
