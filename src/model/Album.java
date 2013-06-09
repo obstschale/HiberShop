@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -36,8 +37,10 @@ import javax.persistence.Table;
 public class Album {
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
+	@Column(nullable=false)
 	private String name;
 	private String interpret;
+	@Column(nullable=false)
 	private String cover;
 	@OneToMany(fetch=FetchType.LAZY)
 	private List<Medium> media = new ArrayList<Medium>();
