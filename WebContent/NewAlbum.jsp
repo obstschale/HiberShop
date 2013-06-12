@@ -22,7 +22,7 @@
 			
 			<div class="pure-control-group">
 	            <label for="cover">Cover</label>
-				<input type="file" name="cover" placeholder="Cover" />
+				<input type="file" name="cover" placeholder="Cover" required />
 			</div>
 			
 			<div class="pure-controls">

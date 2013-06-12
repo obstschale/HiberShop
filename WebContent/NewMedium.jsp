@@ -57,12 +57,17 @@
 			<div class="pure-control-group">
 	            <label for="type">Type</label>
 				<select name="type">
-					<option value="NULL" disabled>W&auml;hle einen Typen</option>
 					<%
+						boolean hasElement = false;
 						if (request.getAttribute("typeList") != null) {
 							List<Type> types = (List<Type>) request.getAttribute("typeList");
 							Iterator<Type> iter2 = types.iterator();
+							
 							while (iter2.hasNext()) {
+								if (!hasElement) {
+									out.print("<option value=\"NULL\" disabled>W&auml;hle einen Typen</option>");
+								}
+								
 								Type type = iter2.next();
 								String name = type.getName();
 								int id = type.getId(); %>
@@ -70,10 +75,13 @@
 								<% out.print(name); %>
 								</option>
 								<%
+								hasElement = true;
 							}
-						} else {
+						}
+						
+						if (!hasElement) {
 							%>
-							<option disabled>Bitte zuerst einen Type erstellen!</option>
+							<option value="NULL">Bitte zuerst einen Type erstellen!</option>
 							<%
 						}
 					%>

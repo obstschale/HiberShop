@@ -20,7 +20,7 @@ import javax.persistence.Table;
 public class Medium {
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
-	@ManyToOne @Column(nullable=false)
+	@ManyToOne
 	private Type type;
 	@ManyToOne
 	private Album album;

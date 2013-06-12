@@ -17,7 +17,7 @@
 			
 			<div class="pure-control-group">
 	            <label for="icon">Icon</label>
-				<input type="file" name="icon" value="Icon hochladen" />
+				<input type="file" name="icon" value="Icon hochladen" required />
 			</div>
 			
 			<div class="pure-controls">
