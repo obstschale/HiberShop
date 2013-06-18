@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+	<display-name>Musikshop_JSP</display-name>
+	<welcome-file-list>
+		<welcome-file>welcome.jsp</welcome-file>
+	</welcome-file-list>
+	
+	<servlet>
+		<servlet-name>ControllerServlet</servlet-name>
+		<servlet-class>ctrl.Controller</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControllerServlet</servlet-name>
+		<url-pattern>/Controller</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ControllerAllMediaServlet</servlet-name>
+		<servlet-class>ctrl.ControllerAllMedia</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControllerAllMediaServlet</servlet-name>
+		<url-pattern>/ControllerAllMedia</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ControllerMediumDetailedServlet</servlet-name>
+		<servlet-class>ctrl.ControllerMediumDetailed</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControllerMediumDetailedServlet</servlet-name>
+		<url-pattern>/ControllerMediumDetailed</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ControllerCartServlet</servlet-name>
+		<servlet-class>ctrl.ControllerCart</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControllerCartServlet</servlet-name>
+		<url-pattern>/ControllerCart</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ControllerAlbumServlet</servlet-name>
+		<servlet-class>ctrl.ControllerAlbum</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControllerAlbumServlet</servlet-name>
+		<url-pattern>/ControllerAlbum</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ControllerTypeServlet</servlet-name>
+		<servlet-class>ctrl.ControllerType</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControllerTypeServlet</servlet-name>
+		<url-pattern>/ControllerType</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ControllerMediumServlet</servlet-name>
+		<servlet-class>ctrl.ControllerMedium</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControllerMediumServlet</servlet-name>
+		<url-pattern>/ControllerMedium</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ControllerStatisticsServlet</servlet-name>
+		<servlet-class>ctrl.ControllerStatistics</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControllerStatisticsServlet</servlet-name>
+		<url-pattern>/ControllerStatistics</url-pattern>
+	</servlet-mapping>
+</web-app>
