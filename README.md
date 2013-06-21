@@ -1,7 +1,7 @@
 HiberShop
 =========
-Musicshop app with Hibernate
-----------------------------
+Musicshop built with Hibernate and JSP
+--------------------------------------
 
 Intro
 -----
